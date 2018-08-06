@@ -1,6 +1,6 @@
 var fs = require("fs");
 var zlib = require("zlib");
-var fd_slicer = $$.requireModule("fd-slicer");
+const fd_slicer = $$.requireModule("node-fd-slicer");
 var crc32 = $$.requireModule("buffer-crc32");
 var util = require("util");
 var EventEmitter = require("events").EventEmitter;
