@@ -10,7 +10,7 @@ var Writable = require("stream").Writable;
 
 exports.open = open;
 exports.fromFd = fromFd;
-exports.fromBuffers = fromBuffers;
+exports.fromBuffer = fromBuffer;
 exports.fromRandomAccessReader = fromRandomAccessReader;
 exports.dosDateTimeToDate = dosDateTimeToDate;
 exports.validateFileName = validateFileName;
@@ -72,18 +72,6 @@ function fromBuffer(buffer, options, callback) {
 	// limit the max chunk size. see https://github.com/thejoshwolfe/yauzl/issues/87
 	var reader = fd_slicer.createFromBuffer(buffer, {maxChunkSize: 0x10000});
 	fromRandomAccessReader(reader, buffer.length, options, callback);
-}
-
-function fromBuffers(buffers, options, callback) {
-	if(Buffer.isBuffer(buffers)){
-		fromBuffer(buffers, options, callback);
-		return;
-	}
-	var buff = Buffer.alloc(0);
-	buffers.forEach((buffer) => {
-		buff = Buffer.concat([buff, buffer]);
-	});
-	fromBuffer(buff, options, callback);
 }
 
 function fromRandomAccessReader(reader, totalSize, options, callback) {
